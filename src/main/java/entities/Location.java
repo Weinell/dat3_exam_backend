@@ -24,6 +24,13 @@ public class Location {
     public Location() {
     }
 
+    public Location(Long id, String address, String city, Integer condition) {
+        this.id = id;
+        this.address = address;
+        this.city = city;
+        this.condition = condition;
+    }
+
     public String getAddress() {
         return address;
     }

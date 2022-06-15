@@ -23,6 +23,14 @@ public class Player {
     public Player() {
     }
 
+    public Player(Long id, String name, String phone, String email, Integer status) {
+        this.id = id;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.status = status;
+    }
+
     public String getName() {
         return name;
     }
