@@ -21,7 +21,7 @@ public class Match {
     private String judge;
 
     @Column(name = "type")
-    private int type;
+    private Integer type;
 
     @Column(name = "inDoors")
     private boolean inDoors;
@@ -29,7 +29,7 @@ public class Match {
     public Match() {
     }
 
-    public Match(String opponentTeam, String judge, int type, boolean inDoors) {
+    public Match(String opponentTeam, String judge, Integer type, boolean inDoors) {
         this.opponentTeam = opponentTeam;
         this.judge = judge;
         this.type = type;
@@ -60,11 +60,11 @@ public class Match {
         this.judge = judge;
     }
 
-    public int getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 
