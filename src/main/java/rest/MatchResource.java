@@ -11,6 +11,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
+import java.util.List;
 
 @Path("match")
 public class MatchResource {
@@ -52,5 +54,17 @@ public class MatchResource {
                 .build();
     }
 
-
+    @Path("all")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAll()    {
+        List<MatchDTO> matchDTOS = new ArrayList<>();
+        for (Match m : facade.getAll()) {
+            matchDTOS.add(new MatchDTO(m));
+        }
+        return Response
+                .ok()
+                .entity(GSON.toJson(matchDTOS))
+                .build();
+    }
 }

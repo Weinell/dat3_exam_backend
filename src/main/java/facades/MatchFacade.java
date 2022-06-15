@@ -5,6 +5,7 @@ import javassist.NotFoundException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class MatchFacade implements IFacade<Match> {
@@ -62,7 +63,9 @@ public class MatchFacade implements IFacade<Match> {
 
     @Override
     public List<Match> getAll() {
-        return null;
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Match> query = em.createQuery("SELECT m FROM Match m", Match.class);
+        return query.getResultList();
     }
 
     @Override
