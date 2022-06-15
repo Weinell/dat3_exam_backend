@@ -9,6 +9,7 @@ import facades.PlayerFacade;
 import javassist.NotFoundException;
 import utils.EMF_Creator;
 
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -31,6 +32,7 @@ public class PlayerResource {
 
     @Path("create")
     @POST
+    @RolesAllowed("admin")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(String jsonContext)  {
@@ -70,6 +72,7 @@ public class PlayerResource {
 
     @Path("update/{id}")
     @PUT
+    @RolesAllowed("admin")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response update(@PathParam("id") Long id, String jsonContext) throws javassist.NotFoundException {
@@ -85,6 +88,7 @@ public class PlayerResource {
 
     @Path("delete/{id}")
     @DELETE
+    @RolesAllowed("admin")
     @Produces(MediaType.APPLICATION_JSON)
     public Response delete(@PathParam("id") Long id) throws NotFoundException {
         PlayerDTO deleted = new PlayerDTO(facade.delete(id));
