@@ -42,7 +42,6 @@ public class MatchFacade implements IFacade<Match> {
         EntityManager em = emf.createEntityManager();
         Match found = em.find(Match.class, match.getId());
 
-        // Error handling
         if (found == null) {
             throw new NotFoundException("Entity with ID: " + match.getId() + " not found");
         }

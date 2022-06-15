@@ -1,6 +1,5 @@
 package facades;
 
-import entities.Match;
 import entities.Player;
 import javassist.NotFoundException;
 
@@ -37,7 +36,21 @@ public class PlayerFacade implements IFacade<Player>{
 
     @Override
     public Player update(Player player) throws NotFoundException {
-        return null;
+        EntityManager em = emf.createEntityManager();
+        Player found = em.find(Player.class, player.getId());
+
+        if (found == null) {
+            throw new NotFoundException("Entity with ID: " + player.getId() + " not found");
+        }
+
+        try {
+            em.getTransaction().begin();
+            Player updated = em.merge(player);
+            em.getTransaction().commit();
+            return updated;
+        } finally {
+            em.close();
+        }
     }
 
     @Override

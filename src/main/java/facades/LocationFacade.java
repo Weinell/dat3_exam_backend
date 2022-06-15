@@ -37,7 +37,21 @@ public class LocationFacade implements IFacade<Location>{
 
     @Override
     public Location update(Location location) throws NotFoundException {
-        return null;
+        EntityManager em = emf.createEntityManager();
+        Location found = em.find(Location.class, location.getId());
+
+        if (found == null) {
+            throw new NotFoundException("Entity with ID: " + location.getId() + " not found");
+        }
+
+        try {
+            em.getTransaction().begin();
+            Location updated = em.merge(location);
+            em.getTransaction().commit();
+            return updated;
+        } finally {
+            em.close();
+        }
     }
 
     @Override

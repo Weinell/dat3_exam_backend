@@ -23,6 +23,8 @@ public class Location {
     @Column(name = "condition")
     private Integer condition;
 
+
+
     public Location() {
     }
 
