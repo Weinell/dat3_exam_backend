@@ -1,10 +1,12 @@
 package facades;
 
+import entities.Match;
 import entities.Player;
 import javassist.NotFoundException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class PlayerFacade implements IFacade<Player>{
@@ -63,7 +65,9 @@ public class PlayerFacade implements IFacade<Player>{
 
     @Override
     public List<Player> getAll() {
-        return null;
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Player> query = em.createQuery("SELECT p FROM Player p", Player.class);
+        return query.getResultList();
     }
 
     @Override

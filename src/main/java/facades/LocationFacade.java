@@ -1,10 +1,12 @@
 package facades;
 
 import entities.Location;
+import entities.Match;
 import javassist.NotFoundException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class LocationFacade implements IFacade<Location>{
@@ -50,7 +52,9 @@ public class LocationFacade implements IFacade<Location>{
 
     @Override
     public List<Location> getAll() {
-        return null;
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Location> query = em.createQuery("SELECT l FROM Location l", Location.class);
+        return query.getResultList();
     }
 
     @Override
