@@ -7,7 +7,9 @@ package facades;
 
 import javax.persistence.EntityManagerFactory;
 
+import dtos.LocationDTO;
 import dtos.MatchDTO;
+import entities.Location;
 import entities.Match;
 import utils.EMF_Creator;
 
