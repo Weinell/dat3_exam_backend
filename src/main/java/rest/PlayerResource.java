@@ -2,9 +2,11 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dtos.LocationDTO;
 import dtos.PlayerDTO;
 import entities.Player;
 import facades.PlayerFacade;
+import javassist.NotFoundException;
 import utils.EMF_Creator;
 
 import javax.persistence.EntityManagerFactory;
@@ -78,6 +80,17 @@ public class PlayerResource {
         return Response
                 .ok("SUCCESS")
                 .entity(GSON.toJson(updated))
+                .build();
+    }
+
+    @Path("delete/{id}")
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response delete(@PathParam("id") Long id) throws NotFoundException {
+        PlayerDTO deleted = new PlayerDTO(facade.delete(id));
+        return Response
+                .ok("SUCCESS")
+                .entity(GSON.toJson(deleted))
                 .build();
     }
     
