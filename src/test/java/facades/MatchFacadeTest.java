@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class MatchFacadeTest {
 
-    private static EntityManagerFactory emf;
+    private static final EntityManagerFactory emf = EMF_Creator.createEntityManagerFactoryForTest();
     private static MatchFacade facade;
 
     public MatchFacadeTest() {
@@ -20,8 +20,7 @@ class MatchFacadeTest {
 
     @BeforeAll
     static void setUpClass() {
-        emf = EMF_Creator.createEntityManagerFactoryForTest();
-        facade = MatchFacade.getFacade(emf);
+
     }
 
     @BeforeEach
@@ -40,6 +39,8 @@ class MatchFacadeTest {
 
     @Test
     void create() {
+        facade = MatchFacade.getFacade(emf);
+
         Match actual = facade.create(new Match("The Eagles", "Don Henley", 2, true));
 
         assertNotNull(actual);
@@ -55,6 +56,8 @@ class MatchFacadeTest {
 
     @Test
     void getById() throws NotFoundException {
+        facade = MatchFacade.getFacade(emf);
+
         Match expected = facade.create(new Match("The Creators", "Thanos", 2, true));
 
         facade.create(expected);

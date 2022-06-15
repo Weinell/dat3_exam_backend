@@ -1,5 +1,7 @@
 package dtos;
 
+import entities.Match;
+
 public class MatchDTO {
 
     private Long id;
@@ -13,6 +15,9 @@ public class MatchDTO {
         this.judge = judge;
         this.type = type;
         this.inDoors = inDoors;
+    }
+
+    public MatchDTO(Match match) {
     }
 
     public Long getId() {
