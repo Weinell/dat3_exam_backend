@@ -1,7 +1,5 @@
 package entities;
 
-import org.graalvm.compiler.graph.Node;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
