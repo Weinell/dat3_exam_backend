@@ -18,6 +18,10 @@ public class MatchDTO {
     }
 
     public MatchDTO(Match match) {
+        this.opponentTeam = match.getOpponentTeam();
+        this.judge = match.getJudge();
+        this.type = match.getType();
+        this.inDoors = match.isInDoors();
     }
 
     public Long getId() {
