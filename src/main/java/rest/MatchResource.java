@@ -41,5 +41,16 @@ public class MatchResource {
                 .build();
     }
 
+    @Path("{id}")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getById(@PathParam("id") Long id) throws NotFoundException, javassist.NotFoundException {
+        MatchDTO found = new MatchDTO(facade.getById(id));
+        return Response
+                .ok("SUCCESS")
+                .entity(GSON.toJson(found))
+                .build();
+    }
+
 
 }
