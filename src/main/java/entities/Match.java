@@ -75,4 +75,15 @@ public class Match {
     public void setInDoors(boolean inDoors) {
         this.inDoors = inDoors;
     }
+
+    @Override
+    public String toString() {
+        return "Match{" +
+                "id=" + id +
+                ", opponentTeam='" + opponentTeam + '\'' +
+                ", judge='" + judge + '\'' +
+                ", type=" + type +
+                ", inDoors=" + inDoors +
+                '}';
+    }
 }

@@ -6,6 +6,7 @@ import utils.EMF_Creator;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class MatchFacadeTest {
@@ -39,10 +40,11 @@ class MatchFacadeTest {
 
     @Test
     void create() {
-
         Match actual = facade.create(new Match("The Eagles", "Jens", 1, false));
 
         assertNotNull(actual);
+        System.out.println(actual);
+        assertEquals(2, actual.getId());
     }
 
     @Test
