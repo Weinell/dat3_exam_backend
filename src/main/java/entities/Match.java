@@ -7,7 +7,9 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "matches")
+@NamedQuery(name = "Match.deleteAllRows", query = "DELETE from Match")
 public class Match {
+
     @Id
     @Column(name = "id")
     @NotNull
