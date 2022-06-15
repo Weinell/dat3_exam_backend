@@ -46,7 +46,7 @@ public class MatchResource {
     @Path("{id}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public Response getById(@PathParam("id") Long id) throws NotFoundException, javassist.NotFoundException {
+    public Response getById(@PathParam("id") Long id) throws javassist.NotFoundException {
         MatchDTO found = new MatchDTO(facade.getById(id));
         return Response
                 .ok("SUCCESS")
@@ -65,6 +65,21 @@ public class MatchResource {
         return Response
                 .ok()
                 .entity(GSON.toJson(matchDTOS))
+                .build();
+    }
+
+    @Path("update/{id}")
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response update(@PathParam("id") Long id, String jsonContext) throws javassist.NotFoundException {
+        MatchDTO matchDTO = GSON.fromJson(jsonContext, MatchDTO.class);
+        Match match = new Match(matchDTO);
+        match.setId(id);
+        MatchDTO updated = new MatchDTO(facade.update(match));
+        return Response
+                .ok("SUCCESS")
+                .entity(GSON.toJson(updated))
                 .build();
     }
 }

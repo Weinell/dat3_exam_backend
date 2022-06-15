@@ -39,7 +39,22 @@ public class MatchFacade implements IFacade<Match> {
 
     @Override
     public Match update(Match match) throws NotFoundException {
-        return null;
+        EntityManager em = emf.createEntityManager();
+        Match found = em.find(Match.class, match.getId());
+
+        // Error handling
+        if (found == null) {
+            throw new NotFoundException("Entity with ID: " + match.getId() + " not found");
+        }
+
+        try {
+            em.getTransaction().begin();
+            Match updated = em.merge(match);
+            em.getTransaction().commit();
+            return updated;
+        } finally {
+            em.close();
+        }
     }
 
     @Override
