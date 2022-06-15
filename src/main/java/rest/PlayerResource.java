@@ -2,9 +2,9 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dtos.MatchDTO;
-import entities.Match;
-import facades.MatchFacade;
+import dtos.PlayerDTO;
+import entities.Player;
+import facades.PlayerFacade;
 import utils.EMF_Creator;
 
 import javax.persistence.EntityManagerFactory;
@@ -14,13 +14,13 @@ import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
 
-@Path("match")
-public class MatchResource {
+@Path("player")
+public class PlayerResource {
 
     private static final EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
-    private static final MatchFacade facade = MatchFacade.getFacade(emf);
+    private static final PlayerFacade facade = PlayerFacade.getFacade(emf);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-
+    
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String checkAlive() {
@@ -32,9 +32,9 @@ public class MatchResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(String jsonContext)  {
-        MatchDTO matchDTO = GSON.fromJson(jsonContext, MatchDTO.class);
-        Match match = new Match(matchDTO);
-        MatchDTO created = new MatchDTO(facade.create(match));
+        PlayerDTO playerDTO = GSON.fromJson(jsonContext, PlayerDTO.class);
+        Player player = new Player(playerDTO);
+        PlayerDTO created = new PlayerDTO(facade.create(player));
         return Response
                 .ok()
                 .entity(GSON.toJson(created))
@@ -45,7 +45,7 @@ public class MatchResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public Response getById(@PathParam("id") Long id) throws javassist.NotFoundException {
-        MatchDTO found = new MatchDTO(facade.getById(id));
+        PlayerDTO found = new PlayerDTO(facade.getById(id));
         return Response
                 .ok("SUCCESS")
                 .entity(GSON.toJson(found))
@@ -56,28 +56,31 @@ public class MatchResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll()    {
-        List<MatchDTO> matchDTOS = new ArrayList<>();
-        for (Match m : facade.getAll()) {
-            matchDTOS.add(new MatchDTO(m));
+        List<PlayerDTO> playerDTOS = new ArrayList<>();
+        for (Player p : facade.getAll()) {
+            playerDTOS.add(new PlayerDTO(p));
         }
         return Response
                 .ok()
-                .entity(GSON.toJson(matchDTOS))
+                .entity(GSON.toJson(playerDTOS))
                 .build();
     }
 
-    @Path("update/{id}")
-    @PUT
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response update(@PathParam("id") Long id, String jsonContext) throws javassist.NotFoundException {
-        MatchDTO matchDTO = GSON.fromJson(jsonContext, MatchDTO.class);
-        Match match = new Match(matchDTO);
-        match.setId(id);
-        MatchDTO updated = new MatchDTO(facade.update(match));
-        return Response
-                .ok("SUCCESS")
-                .entity(GSON.toJson(updated))
-                .build();
-    }
+//    @Path("update/{id}")
+//    @PUT
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    public Response update(@PathParam("id") Long id, String jsonContext) throws javassist.NotFoundException {
+//        PlayerDTO playerDTO = GSON.fromJson(jsonContext, PlayerDTO.class);
+//        Player player = new Player(playerDTO);
+//        player.setId(id);
+//        PlayerDTO updated = new PlayerDTO(facade.update(player));
+//        return Response
+//                .ok("SUCCESS")
+//                .entity(GSON.toJson(updated))
+//                .build();
+//    }
+    
+    
+
 }

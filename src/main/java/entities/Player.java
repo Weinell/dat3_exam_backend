@@ -1,5 +1,7 @@
 package entities;
 
+import dtos.PlayerDTO;
+
 import javax.persistence.*;
 
 @Entity
@@ -29,6 +31,13 @@ public class Player {
         this.phone = phone;
         this.email = email;
         this.status = status;
+    }
+
+    public Player(PlayerDTO playerDTO) {
+        this.name = playerDTO.getName();
+        this.phone = playerDTO.getPhone();
+        this.email = playerDTO.getEmail();
+        this.status = playerDTO.getStatus();
     }
 
     public String getName() {

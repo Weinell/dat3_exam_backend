@@ -33,6 +33,7 @@ public class ApplicationConfig extends Application {
 
         resources.add(UserResource.class);
         resources.add(MatchResource.class);
+        resources.add(PlayerResource.class);
     }
     
 }
