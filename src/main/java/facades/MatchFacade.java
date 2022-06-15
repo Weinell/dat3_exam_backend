@@ -3,6 +3,7 @@ package facades;
 import entities.Match;
 import javassist.NotFoundException;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
@@ -24,7 +25,15 @@ public class MatchFacade implements IFacade<Match> {
 
     @Override
     public Match create(Match match) {
-        return null;
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(match);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return match;
     }
 
     @Override
