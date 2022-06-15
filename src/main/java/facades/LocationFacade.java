@@ -1,7 +1,6 @@
 package facades;
 
 import entities.Location;
-import entities.Match;
 import javassist.NotFoundException;
 
 import javax.persistence.EntityManager;

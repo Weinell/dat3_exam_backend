@@ -3,6 +3,7 @@ package entities;
 import dtos.PlayerDTO;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "players")
@@ -25,8 +26,7 @@ public class Player {
     public Player() {
     }
 
-    public Player(Long id, String name, String phone, String email, Integer status) {
-        this.id = id;
+    public Player(String name, String phone, String email, Integer status) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -78,5 +78,29 @@ public class Player {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", status=" + status +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Player)) return false;
+        Player player = (Player) o;
+        return Objects.equals(getId(), player.getId()) && Objects.equals(getName(), player.getName()) && Objects.equals(getPhone(), player.getPhone()) && Objects.equals(getEmail(), player.getEmail()) && Objects.equals(getStatus(), player.getStatus());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getPhone(), getEmail(), getStatus());
     }
 }

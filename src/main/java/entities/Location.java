@@ -3,6 +3,8 @@ package entities;
 import dtos.LocationDTO;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
+import java.util.Objects;
 
 @Entity
 @Table(name = "locations")
@@ -10,8 +12,8 @@ import javax.persistence.*;
 public class Location {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "address")
@@ -20,25 +22,31 @@ public class Location {
     @Column(name = "city")
     private String city;
 
-    @Column(name = "condition")
-    private Integer condition;
-
-
+    @Size(min = 1, max = 255)
+    @Column(name = "conditions")
+    private Integer conditions;
 
     public Location() {
     }
 
-    public Location(Long id, String address, String city, Integer condition) {
-        this.id = id;
+    public Location(String address, String city, Integer conditions) {
         this.address = address;
         this.city = city;
-        this.condition = condition;
+        this.conditions = conditions;
     }
 
     public Location(LocationDTO locationDTO) {
         this.address = locationDTO.getAddress();
         this.city = locationDTO.getCity();
-        this.condition = locationDTO.getCondition();
+        this.conditions = locationDTO.getConditions();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getAddress() {
@@ -57,19 +65,34 @@ public class Location {
         this.city = city;
     }
 
-    public Integer getCondition() {
-        return condition;
+    public Integer getConditions() {
+        return conditions;
     }
 
-    public void setCondition(Integer condition) {
-        this.condition = condition;
+    public void setConditions(Integer conditions) {
+        this.conditions = conditions;
     }
 
-    public Long getId() {
-        return id;
+    @Override
+    public String toString() {
+        return "Location{" +
+                "id=" + id +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", condition=" + conditions +
+                '}';
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Location)) return false;
+        Location location = (Location) o;
+        return Objects.equals(getId(), location.getId()) && Objects.equals(getAddress(), location.getAddress()) && Objects.equals(getCity(), location.getCity()) && Objects.equals(getConditions(), location.getConditions());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getAddress(), getCity(), getConditions());
     }
 }

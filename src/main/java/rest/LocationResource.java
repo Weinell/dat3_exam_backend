@@ -3,9 +3,7 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dtos.LocationDTO;
-import dtos.MatchDTO;
 import entities.Location;
-import entities.Match;
 import facades.LocationFacade;
 import utils.EMF_Creator;
 

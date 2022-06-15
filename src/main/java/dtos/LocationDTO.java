@@ -7,18 +7,18 @@ public class LocationDTO {
     private Long id;
     private String address;
     private String city;
-    private Integer condition;
+    private Integer conditions;
 
-    public LocationDTO(String address, String city, Integer condition) {
+    public LocationDTO(String address, String city, Integer conditions) {
         this.address = address;
         this.city = city;
-        this.condition = condition;
+        this.conditions = conditions;
     }
 
     public LocationDTO(Location location)    {
         this.address = location.getAddress();
         this.city = location.getCity();
-        this.condition = location.getCondition();
+        this.conditions = location.getConditions();
     }
 
     public Long getId() {
@@ -45,11 +45,11 @@ public class LocationDTO {
         this.city = city;
     }
 
-    public Integer getCondition() {
-        return condition;
+    public Integer getConditions() {
+        return conditions;
     }
 
-    public void setCondition(Integer condition) {
-        this.condition = condition;
+    public void setCondition(Integer conditions) {
+        this.conditions = conditions;
     }
 }
