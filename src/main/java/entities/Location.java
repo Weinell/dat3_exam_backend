@@ -1,5 +1,7 @@
 package entities;
 
+import dtos.LocationDTO;
+
 import javax.persistence.*;
 
 @Entity
@@ -29,6 +31,12 @@ public class Location {
         this.address = address;
         this.city = city;
         this.condition = condition;
+    }
+
+    public Location(LocationDTO locationDTO) {
+        this.address = locationDTO.getAddress();
+        this.city = locationDTO.getCity();
+        this.condition = locationDTO.getCondition();
     }
 
     public String getAddress() {

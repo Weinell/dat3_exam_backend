@@ -2,9 +2,11 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dtos.PlayerDTO;
-import entities.Player;
-import facades.PlayerFacade;
+import dtos.LocationDTO;
+import dtos.MatchDTO;
+import entities.Location;
+import entities.Match;
+import facades.LocationFacade;
 import utils.EMF_Creator;
 
 import javax.persistence.EntityManagerFactory;
@@ -14,13 +16,13 @@ import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
 
-@Path("player")
-public class PlayerResource {
+@Path("location")
+public class LocationResource {
 
     private static final EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
-    private static final PlayerFacade facade = PlayerFacade.getFacade(emf);
+    private static final LocationFacade facade = LocationFacade.getFacade(emf);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String checkAlive() {
@@ -32,9 +34,9 @@ public class PlayerResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(String jsonContext)  {
-        PlayerDTO playerDTO = GSON.fromJson(jsonContext, PlayerDTO.class);
-        Player player = new Player(playerDTO);
-        PlayerDTO created = new PlayerDTO(facade.create(player));
+        LocationDTO locationDTO = GSON.fromJson(jsonContext, LocationDTO.class);
+        Location location = new Location(locationDTO);
+        LocationDTO created = new LocationDTO(facade.create(location));
         return Response
                 .ok()
                 .entity(GSON.toJson(created))
@@ -45,7 +47,7 @@ public class PlayerResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public Response getById(@PathParam("id") Long id) throws javassist.NotFoundException {
-        PlayerDTO found = new PlayerDTO(facade.getById(id));
+        LocationDTO found = new LocationDTO(facade.getById(id));
         return Response
                 .ok("SUCCESS")
                 .entity(GSON.toJson(found))
@@ -56,13 +58,13 @@ public class PlayerResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll()    {
-        List<PlayerDTO> playerDTOS = new ArrayList<>();
-        for (Player p : facade.getAll()) {
-            playerDTOS.add(new PlayerDTO(p));
+        List<LocationDTO> locationDTOS = new ArrayList<>();
+        for (Location l : facade.getAll()) {
+            locationDTOS.add(new LocationDTO(l));
         }
         return Response
                 .ok()
-                .entity(GSON.toJson(playerDTOS))
+                .entity(GSON.toJson(locationDTOS))
                 .build();
     }
 
@@ -71,16 +73,13 @@ public class PlayerResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response update(@PathParam("id") Long id, String jsonContext) throws javassist.NotFoundException {
-        PlayerDTO playerDTO = GSON.fromJson(jsonContext, PlayerDTO.class);
-        Player player = new Player(playerDTO);
-        player.setId(id);
-        PlayerDTO updated = new PlayerDTO(facade.update(player));
+        LocationDTO locationDTO = GSON.fromJson(jsonContext, LocationDTO.class);
+        Location location = new Location(locationDTO);
+        location.setId(id);
+        LocationDTO updated = new LocationDTO(facade.update(location));
         return Response
                 .ok("SUCCESS")
                 .entity(GSON.toJson(updated))
                 .build();
     }
-    
-    
-
 }
