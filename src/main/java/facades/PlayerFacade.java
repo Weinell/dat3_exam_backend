@@ -40,7 +40,20 @@ public class PlayerFacade implements IFacade<Player>{
 
     @Override
     public Player delete(Long id) throws NotFoundException {
-        return null;
+        EntityManager em = emf.createEntityManager();
+        Player found = em.find(Player.class, id);
+        if (found == null) {
+            throw new NotFoundException("Could not remove Entity with id: " + id);
+        }
+
+        try {
+            em.getTransaction().begin();
+            em.remove(found);
+            em.getTransaction().commit();
+            return found;
+        } finally {
+            em.close();
+        }
     }
 
     @Override
