@@ -6,6 +6,7 @@
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <class>entities.Match</class>
         <class>entities.Player</class>
+        <class>entities.Location</class>
         <!--    <class>entities.RenameMe</class>-->
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
