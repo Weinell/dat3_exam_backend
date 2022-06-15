@@ -7,6 +7,7 @@ import entities.Location;
 import facades.LocationFacade;
 import utils.EMF_Creator;
 
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -29,6 +30,7 @@ public class LocationResource {
 
     @Path("create")
     @POST
+    @RolesAllowed("admin")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(String jsonContext)  {
@@ -68,6 +70,7 @@ public class LocationResource {
 
     @Path("update/{id}")
     @PUT
+    @RolesAllowed("admin")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response update(@PathParam("id") Long id, String jsonContext) throws javassist.NotFoundException {
