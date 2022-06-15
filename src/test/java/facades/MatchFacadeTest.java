@@ -55,12 +55,11 @@ class MatchFacadeTest {
 
     @Test
     void getById() throws NotFoundException {
-        Match match = facade.create(new Match("The Creators", "Thanos", 2, true));
+        Match expected = facade.create(new Match("The Creators", "Thanos", 2, true));
 
-        facade.create(match);
+        facade.create(expected);
 
-        int expected = 2;
-        Match actual= facade.getById(1L);
+        Match actual = facade.getById(2L);
 
         assertEquals(expected, actual);
     }

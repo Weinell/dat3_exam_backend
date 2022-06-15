@@ -48,7 +48,16 @@ public class MatchFacade implements IFacade<Match> {
 
     @Override
     public Match getById(Long id) throws NotFoundException {
-        return null;
+        EntityManager em = emf.createEntityManager();
+        Match match;
+
+        try {
+            em.getTransaction().begin();
+            match = em.find(Match.class, id);
+        } finally {
+            em.close();
+        }
+        return match;
     }
 
     @Override

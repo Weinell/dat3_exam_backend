@@ -2,6 +2,7 @@ package entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 @Entity
 @Table(name = "matches")
@@ -85,5 +86,18 @@ public class Match {
                 ", type=" + type +
                 ", inDoors=" + inDoors +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Match)) return false;
+        Match match = (Match) o;
+        return isInDoors() == match.isInDoors() && Objects.equals(getId(), match.getId()) && Objects.equals(getOpponentTeam(), match.getOpponentTeam()) && Objects.equals(getJudge(), match.getJudge()) && Objects.equals(getType(), match.getType());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getOpponentTeam(), getJudge(), getType(), isInDoors());
     }
 }
