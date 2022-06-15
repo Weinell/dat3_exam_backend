@@ -2,14 +2,15 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dtos.MatchDTO;
+import entities.Match;
 import facades.MatchFacade;
 import utils.EMF_Creator;
 
 import javax.persistence.EntityManagerFactory;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Path("match")
 public class MatchResource {
@@ -24,5 +25,21 @@ public class MatchResource {
     public String checkAlive() {
         return "{\"msg\":\"This endpoint works!\"}";
     }
+
+
+    @Path("create")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response create(String jsonContext)  {
+        MatchDTO matchDTO = GSON.fromJson(jsonContext, MatchDTO.class);
+        Match match = new Match(matchDTO);
+        MatchDTO created = new MatchDTO(facade.create(match));
+        return Response
+                .ok()
+                .entity(GSON.toJson(created))
+                .build();
+    }
+
 
 }

@@ -1,5 +1,7 @@
 package entities;
 
+import dtos.MatchDTO;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
@@ -35,6 +37,13 @@ public class Match {
         this.judge = judge;
         this.type = type;
         this.inDoors = inDoors;
+    }
+
+    public Match(MatchDTO matchDTO) {
+        this.opponentTeam = matchDTO.getOpponentTeam();
+        this.judge = matchDTO.getJudge();
+        this.type = matchDTO.getType();
+        this.inDoors = matchDTO.isInDoors();
     }
 
     public Long getId() {
