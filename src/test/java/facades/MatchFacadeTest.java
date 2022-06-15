@@ -1,6 +1,7 @@
 package facades;
 
 import entities.Match;
+import javassist.NotFoundException;
 import org.junit.jupiter.api.*;
 import utils.EMF_Creator;
 import javax.persistence.EntityManager;
@@ -30,7 +31,6 @@ class MatchFacadeTest {
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Match.deleteAllRows").executeUpdate();
-            em.persist(new Match("The Eagles", "Jens", 1, false));
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -40,11 +40,9 @@ class MatchFacadeTest {
 
     @Test
     void create() {
-        Match actual = facade.create(new Match("The Eagles", "Jens", 1, false));
+        Match actual = facade.create(new Match("The Eagles", "Don Henley", 2, true));
 
         assertNotNull(actual);
-        System.out.println(actual);
-        assertEquals(2, actual.getId());
     }
 
     @Test
@@ -56,7 +54,15 @@ class MatchFacadeTest {
     }
 
     @Test
-    void getById() {
+    void getById() throws NotFoundException {
+        Match match = facade.create(new Match("The Creators", "Thanos", 2, true));
+
+        facade.create(match);
+
+        int expected = 2;
+        Match actual= facade.getById(1L);
+
+        assertEquals(expected, actual);
     }
 
     @Test
