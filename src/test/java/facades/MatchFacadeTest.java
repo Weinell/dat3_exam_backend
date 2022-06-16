@@ -78,7 +78,7 @@ class MatchFacadeTest {
 
         facade.create(expected);
 
-        Match actual = facade.getById(5L);
+        Match actual = facade.getById(11L);
 
         assertEquals(expected, actual);
     }
