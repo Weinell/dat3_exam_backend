@@ -51,7 +51,23 @@ class MatchFacadeTest {
     }
 
     @Test
-    void delete() {
+    void delete() throws NotFoundException {
+        facade = MatchFacade.getFacade(emf);
+
+        Match m1 = facade.create(new Match("The Eagles", "Don Henley", 2, true));
+        Match m2 = facade.create(new Match("The Eagles2", "Don Henley", 2, true));
+
+        int expected = 2;
+        int actual = facade.getAll().size();
+
+        assertEquals(expected, actual);
+
+        facade.delete(m1.getId());
+
+        int expectedAfter = 1;
+        int actualAfter = facade.getAll().size();
+
+        assertEquals(expectedAfter, actualAfter);
     }
 
     @Test
@@ -62,7 +78,7 @@ class MatchFacadeTest {
 
         facade.create(expected);
 
-        Match actual = facade.getById(3L);
+        Match actual = facade.getById(5L);
 
         assertEquals(expected, actual);
     }

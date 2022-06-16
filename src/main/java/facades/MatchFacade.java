@@ -58,7 +58,19 @@ public class MatchFacade implements IFacade<Match> {
 
     @Override
     public Match delete(Long id) throws NotFoundException {
-        return null;
+        EntityManager em = emf.createEntityManager();
+        Match found = em.find(Match.class, id);
+        if (found == null) {
+            throw new NotFoundException("Could not remove Entity with id: " + id);
+        }
+        try {
+            em.getTransaction().begin();
+            em.remove(found);
+            em.getTransaction().commit();
+            return found;
+        } finally {
+            em.close();
+        }
     }
 
     @Override
